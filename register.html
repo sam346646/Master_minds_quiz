@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>register</title>
+    <link rel="stylesheet" href="css/bootstrap-337.min.css">
+    <link rel="stylesheet" href="font-awsome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/user_style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script>
+        $().ready(function () {
+ 
+            $("#registerform").validate({
+                rules: {
+                    name: {
+                        required: true,
+                        minlength: 2
+                    },
+                    pass: {
+                        required: true,
+                        minlength: 8
+                    },
+                    cpass: {
+                        required: true,
+                        minlength: 5,
+                        equalTo: "#pass" 
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    contact: {
+                        required: true,
+                        minlength: 10,
+                        maxlength: 10,
+                        digits: true
+                    }
+                },
+                messages: {
+                    name: {
+                        required:"<span style='color:red'>Please enter a name</span>",
+                        minlength:"<span style='color:red'>Your name must have at least 2 characters</span>"
+                    },
+                    pass: {
+                        required: "<span style='color:red'>Please enter a password</span>",
+                        minlength: "<span style='color:red'>Your password must have at least 8 characters</span>"
+                    },
+                    cpass: {
+                        required: "<span style='color:red'>Please enter a password</span>",
+                        minlength: "<span style='color:red'>Your password should match above password</span>",
+                        equalTo: "<span style='color:red'>Please enter the same password as above</span>"
+                    },
+                    email:{
+                        required: "<span style='color:red'>Please enter a email id</span>",
+                        email: "<span style='color:red'>Please enter the valid email id</span>"
+                    },
+                    contact:{
+                        required: "<span style='color:red'>Please enter a contact number</span>",
+                        minlength: "<span style='color:red'>Your contact number must have exact 10 digits</span>",
+                        maxlength: "<span style='color:red'>Your contact number must have exact 10 digits</span>",
+                        digits: "<span style='color:red'>Contact number can contain only digits</span>"
+                    }
+                }
+            });
+        });
+        
+function validate()
+{
+    var name=document.register.name;
+    var pat=/^[A-Za-z]+$/;
+    var pass=document.register.pass;
+    var pass_pat=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if(!name.value.match(pat))
+    {
+        document.getElementById("error_name").innerHTML="Name can contain only alphabets";
+        document.getElementById("error_name").style.display="block";
+        name.focus();
+        $("#error_name").fadeToggle(4000);
+    }
+    if(!pass.value.match(pass_pat))
+    {
+        document.getElementById("error_pass").innerHTML=" Expected combination of uppercase letter,lowercase letter,number and special character";
+        document.getElementById("error_pass").style.display="block";
+        pass.focus();
+        $("#error_pass").fadeToggle(9000);
+        return false;
+    }
+    if(name.value.match(pat) && pass.value.match(pass_pat))
+        return true;
+}
+</script>
+</head>
+<body>
+    <div class="box login_box">
+            <center><h2>Create new account</h2></center>
+            <form method="get" id="registerform" action="index.html" name="register" onsubmit="return validate()" autocomplete="off">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" name="name" id="name" required>
+                    <span id="error_name" style="color:red;"></span>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" class="form-control" name="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" name="pass"  id="pass"required >
+                    <span id="error_pass" style="color:red;"></span>
+                </div>
+                <div class="form-group">
+                    <label> Confirm Password</label>
+                    <input type="password" class="form-control" name="cpass" id="cpass" required>
+                </div>
+                <div class="form-group">
+                    <label>Contact</label>
+                    <input type="text" class="form-control" name="contact" id="contact" required>
+                </div>
+                <div class="text-center">
+                    <button type="submit" name="register" class="btn btn-primary">
+                        <i class="fa fa-user"></i>&nbsp;Register
+                    </button>  
+                </div>
+            </form>
+    </div>
+</body>
+</html>
